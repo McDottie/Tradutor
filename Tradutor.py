@@ -4,6 +4,7 @@ import re
 ##VARIÁVEIS
 thislist=string.ascii_lowercase
 list1=[' ','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9']
+listMorse=[' ','.-','-...','-.-.','-..','.','..-.','--.','....','..','.--.','-.-','.-..','--','-.','---','.--.','--.-','.-.','...','-','..-','...-','.--','-..-','-.--','--..','-----','.----','..---','...--','....-','.....','-....','--...','---..','----.']
 i=0
 k=0
 traduzida=""
@@ -275,3 +276,20 @@ if(linguagem == '10'):
                     print('   ',end='')
                 l+=1
         print(' ')
+        
+        #linguagem 11
+        if(linguagem == "11"):
+        #Troca o alfabeto para morse
+        #Verifica se é letra
+            frase=temNumero(frase)
+            while i<len(frase):
+                letra=frase[i]
+                if letra==' ':
+                    traduzida+=' '
+                else:
+                    while letra!=thislist[k]:
+                        k+=1
+                    traduzida+=str(listMorse[k])+"/"
+                i+=1
+                k=0
+            print(traduzida)
