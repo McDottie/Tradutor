@@ -10,6 +10,12 @@ traduzida=""
 ##FUNÇÕES
 #Verifica se existe algum número na string
 def temNumero(frase):
+    '''
+    Recebe a frase e verifica se algum dos dígitos é um número, se for a variável num é True e entra no while.
+    Continua no while até a frase não ter números
+    Requires: frase seja string
+    Ensures: return a frase sem números
+    '''
     num=any(string.isdigit() for string in frase)
     while num==True:
         frase=input("Escreva a frase que deseja traduzir apenas com letras: ")
@@ -60,7 +66,7 @@ if(linguagem == "2"):
         else:
             while letra!=thislist[k]:
                 k+=1
-            traduzida+=str(k+1)+" "
+            traduzida+=str(k+1)+"/"
         i+=1
         k=0
     print(traduzida)
@@ -77,7 +83,7 @@ if(linguagem == "3"):
         else:
             while letra!=thislist[k] and letra!=' ':
                 k+=1
-            traduzida+=str(k+1)+" "
+            traduzida+=str(k+1)+"/"
         i+=1
         k=0
     print(traduzida)
@@ -90,10 +96,10 @@ if(linguagem == "4"):
         if letra==' ':
             traduzida+=' '
         else:
-            #Aumenta o k e seleciona com q parte da data este se relaciona
+            #Aumenta o k e seleciona com que parte da data este se relaciona
             while letra!=list1[k]:
                 k+=1
-            if k<=9:  
+            if k<=9:
                 traduzida+=m+str(k)+" "
             elif k==10:
                 traduzida+=m+"0 "
@@ -118,11 +124,11 @@ if(linguagem == '5'):
 #Transporta o alfabeto até "A" ser igual à letra introduzida
 #Verifica se é letra
     frase=temNumero(frase)
-    k=input("Introduza a letra: ")
-    while k!=thislist[i]:
+    letraChave=input("Introduza a letra: ")
+    while letraChave!=thislist[i]:
         i+=1
     chave=i
-    k=chave
+    letraChave=chave
     i=0
     j=0
     while i<len(frase):
@@ -131,14 +137,14 @@ if(linguagem == '5'):
             traduzida+=' '
         else:
             while letra!=list1[j]:
-                if k==26:
-                    k=0
-                k+=1
+                if letraChave==26:
+                    letraChave=0
+                letraChave+=1
                 j+=1
-            traduzida+=list1[k]
+            traduzida+=list1[letraChave]
         i+=1
         j=0
-        k=chave
+        letraChave=chave
     print(traduzida)
 #Linguagem 6
 if(linguagem == '6'):
@@ -158,7 +164,7 @@ if(linguagem == '7'):
 #Transporta o alfabeto até "A" ser o número introduzido
 #Verifica se é letra
     frase=temNumero(frase)
-    k=int(input("Introduza o n?mero: "))
+    k=int(input("Introduza o número: "))
     chave=k
     j=0
     while i<len(frase):
@@ -218,6 +224,13 @@ if(linguagem == '9'):
     print(traduzida+traduzida2)
 #Linguagem 10
 if(linguagem == '10'):
+    #Variáveis
+    #Variável que contem as posições das letras reais
+    position=''
+    #Variável que obtem os chars da var position
+    cross=''
+    l=0
+    m=0
     #Retira os espaços da frase e verifica se é maior que 4
     frase=fraseMaiorQue4(frase)
     #Indica o número de linhas e colunas de acordo com o número de letras
@@ -233,15 +246,32 @@ if(linguagem == '10'):
             if i%2!=0 or j%2!=0:
                 print("+++",end='')
             else:
-                for l in range(1,int(slots),1):
-                    printarLetra=random.choice([True, False])
-                    if slots*3-l==1:
-                        printarLetra=True
-                    if k<len(frase) and printarLetra:
-                        letra=frase[k]
-                        print(' '+letra+' ',end='')
-                        k+=1
-                    elif k>len(frase) or printarLetra==False:
-                        print(' '+random.choice(string.ascii_lowercase)+' ',end='')
-        print('')
-    print(slots)
+                #Escolhe se vai escrever uma letra verdadeira ou uma random
+                rand=random.choice([True, False])
+                #Se a frase ainda não foi toda lida e vai escrever uma letra verdadeira
+                # ou
+                #Se o número de slots que faltam ocupar é igual ao número de letras que faltam escrever
+                if k<len(frase) and rand==True or slots*slots-m==len(frase)-k:
+                    letra=frase[k]
+                    print(' '+letra+' ',end='')
+                    k+=1
+                    m+=1
+                    position+='1'
+                elif k>=len(frase) or rand==False:
+                    print(' '+random.choice(string.ascii_lowercase)+' ',end='')
+                    m+=1
+                    position+='0'
+        print(' ')
+    print('\n')
+    for i in range(1,n,1):
+        for j in range(1,n,1):
+            if i%2!=0 or j%2!=0:
+                print("+++",end='')
+            else:
+                cross=position[l]
+                if cross=='1':
+                    print(' X ',end='')
+                else:
+                    print('   ',end='')
+                l+=1
+        print(' ')
